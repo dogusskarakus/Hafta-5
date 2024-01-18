@@ -1,45 +1,32 @@
-
 import java.util.HashMap;
-import java.util.Scanner;
 import java.util.Map;
-
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-
-        Scanner scan = new Scanner(System.in);
-
-        System.out.print("Bir metin giriniz : ");
-        String text = scan.nextLine();
-
-        //Kelimeleri ayırmamızı sağlar
-        String[] word = text.split(" ");
-
-        // Kelimelerin kaç geçtiğini tutmak için HashMap kullandık.
-        HashMap<String, Integer> textMap = new HashMap<>();
-
-
-        // Kelime varsa eğer sayısı bir artırılır.
-        for (String w : word) {
-            if (textMap.containsKey(w)) {
-                textMap.put(w, textMap.get(w) + 1);
-            } else {
-                textMap.put(w, 1);
-            }
-        }
-        int max =0;
-        String most = "";
-        // Her kelimenin tekrar sayısı kontrol edilir.
-        for (Map.Entry<String, Integer> entry : textMap.entrySet()){
-            if (entry.getValue() > max){
-                max=entry.getValue();
-                most= entry.getKey();
-            }
+        String maxWord=" ";
+        int maxWordCount=0;
+        Scanner inp = new Scanner(System.in);
+        System.out.println("Metni giriniz:");
+        String enteredWord = inp.nextLine();
+        //Boşluğa göre kelimeleri ayırırız.
+        String[] splittedArray = enteredWord.split(" ");
+        Map<String, Integer> wordCounter = new HashMap<>();
+        //Tüm diziyi dönerek kelimeleri gezeriz.
+        for (String word : splittedArray) {
+            if (wordCounter.containsKey(word)) {
+                wordCounter.put(word, wordCounter.get(word) + 1);
+            } else
+                wordCounter.put(word, 1);
         }
 
-        System.out.print("En çok geçen kelime :"+ most + ": "+ max + "'dir ");
+        for(Map.Entry<String, Integer> wordCount : wordCounter.entrySet()) {
+            if(wordCount.getValue()>maxWordCount){
+                maxWordCount=wordCount.getValue();
+                maxWord=wordCount.getKey();
+            }
 
-
+        }
+        System.out.println("En çok tekrar eden kelime: "+ maxWord +" "+maxWordCount+" kez tekrar ediyor.");
     }
 }
-
